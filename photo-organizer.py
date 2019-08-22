@@ -4,6 +4,10 @@ from datetime import datetime
 #7
 
 
+def folderPathFromPhotoDate(file):
+    date = photoShotingData(file)
+    return date.strftime('%Y')+'/'+date.strftime('%Y-%m-%d')
+
 def photoShotingData(file):
     photo = Image.open(file)
     info = photo._getexif()
@@ -17,8 +21,8 @@ def photoShotingData(file):
     return date
 
 
-print(photoShotingData('test1.jpg'))
-print(photoShotingData('vitor.jpg'))
+print(folderPathFromPhotoDate('test1.jpg'))
+print(folderPathFromPhotoDate('vitor.jpg'))
 
 
 
