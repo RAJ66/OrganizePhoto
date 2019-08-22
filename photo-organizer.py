@@ -1,7 +1,8 @@
 import os
 from PIL import Image
 from datetime import datetime
-#7
+import shutil
+#
 
 
 def folderPathFromPhotoDate(file):
@@ -20,9 +21,18 @@ def photoShotingData(file):
 
     return date
 
-
-print(folderPathFromPhotoDate('test1.jpg'))
-print(folderPathFromPhotoDate('vitor.jpg'))
+def movePhoto(file):
+    newFolder = folderPathFromPhotoDate(file)
+    if not os.path.exists(newFolder):
+        os.makedirs(newFolder)
+    
+    shutil.move(file,newFolder+'/'+file)
+    print('||'+file+'||'+' Complete||')
+        
+    
+#execute
+movePhoto('test1.jpg')
+movePhoto('vitor.jpg')
 
 
 
