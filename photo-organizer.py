@@ -3,11 +3,13 @@ from PIL import Image
 from datetime import datetime
 import shutil
 #
+extensions = ['jpg', 'jpeg', 'JPG', 'JPEG']
 
 
 def folderPathFromPhotoDate(file):
     date = photoShotingData(file)
     return date.strftime('%Y')+'/'+date.strftime('%Y-%m-%d')
+
 
 def photoShotingData(file):
     photo = Image.open(file)
@@ -21,18 +23,26 @@ def photoShotingData(file):
 
     return date
 
+
 def movePhoto(file):
     newFolder = folderPathFromPhotoDate(file)
     if not os.path.exists(newFolder):
         os.makedirs(newFolder)
-    
-    shutil.move(file,newFolder+'/'+file)
+
+    shutil.move(file, newFolder+'/'+file)
     print('||'+file+'||'+' Complete||')
-        
-    
-#execute
-movePhoto('test1.jpg')
-movePhoto('vitor.jpg')
+
+
+def organize():
+    photos = [
+        filename for filename in os.listdir('.') if any(filename.endswith(ext) for ext in extensions)
+    ]
+    for name in photos:
+         movePhoto(name)
+
+# execute
+print(organize())
+
 
 
 
